@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blood State</title>
+
+    <style>
+
+        :root {
+            --blood: 0;
+            --red: rgb(
+                calc(20 + (var(--blood) * 35)),
+                calc(0 + (var(--blood) * 2)),
+                calc(0 + (var(--blood) * 2))
+            );
+
+            --text: rgb(
+                calc(255 - (var(--blood) * 200)),
+                calc(255 - (var(--blood) * 200)),
+                calc(255 - (var(--blood) * 200))
+            );
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    var(--red),
+                    #000 70%
+                );
+
+            color: var(--text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+
+            transition:
+                background 1.5s ease,
+                color 1.5s ease;
+        }
+
+        /* Camada de sangue */
+
+        .blood-layer {
+            position: fixed;
+
+            width: 150vmax;
+            height: 150vmax;
+
+            background: #8b0000;
+
+            border-radius: 50%;
+
+            left: 50%;
+            top: 100%;
+
+            transform:
+                translate(-50%, 0)
+                scale(calc(0.1 + var(--blood) * 0.4));
+
+            opacity: calc(var(--blood) * 0.12);
+
+            pointer-events: none;
+
+            transition:
+                transform 1.8s cubic-bezier(.22,1,.36,1),
+                opacity 1.8s ease;
+
+            z-index: 0;
+        }
+
+        /* Conteúdo */
+
+        .container {
+            position: relative;
+
+            z-index: 2;
+
+            width: min(800px, 90%);
+
+            text-align: center;
+
+            transition:
+                transform 1s ease,
+                filter 1s ease;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+
+            letter-spacing: 0.2em;
+
+            margin-bottom: 20px;
+
+            transition:
+                color 1s ease,
+                letter-spacing 1s ease,
+                transform 1s ease;
+        }
+
+        p {
+            font-size: 1rem;
+
+            letter-spacing: 0.25em;
+
+            opacity: 0.7;
+
+            margin-bottom: 50px;
+
+            transition:
+                color 1s ease,
+                opacity 1s ease;
+        }
+
+        button {
+            background: transparent;
+
+            border: 1px solid currentColor;
+
+            color: inherit;
+
+            padding: 16px 40px;
+
+            font-size: 0.9rem;
+
+            letter-spacing: 0.25em;
+
+            cursor: pointer;
+
+            transition:
+                background 0.4s ease,
+                color 0.4s ease,
+                border-color 0.4s ease,
+                transform 0.2s ease;
+        }
+
+        button:hover {
+            background: currentColor;
+
+            color: var(--red);
+
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Texto do estado */
+
+        #state {
+            margin-top: 25px;
+
+            font-size: 0.7rem;
+
+            letter-spacing: 0.3em;
+
+            opacity: 0.5;
+        }
+
+        /* GLITCH */
+
+        .glitch {
+            animation: glitch 0.25s linear;
+        }
+
+        @keyframes glitch {
+
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-8px, 3px);
+            }
+
+            40% {
+                transform: translate(8px, -3px);
+            }
+
+            60% {
+                transform: translate(-4px, -2px);
+            }
+
+            80% {
+                transform: translate(4px, 2px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        /* Estado final */
+
+        body.final-state {
+            background: #8b0000;
+        }
+
+        body.final-state .container {
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.4));
+        }
+
+        body.final-state h1 {
+            letter-spacing: 0.35em;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="blood-layer"></div>
+
+    <main class="container" id="container">
+
+        <h1>BEGIN</h1>
+
+        <p id="message">
+            NÃO HÁ NADA AQUI.
+        </p>
+
+        <button id="action">
+            CONTINUAR
+        </button>
+
+        <div id="state">
+            ESTADO 0
+        </div>
+
+    </main>
+
+
+    <script>
+
+        let state = 0;
+
+        const maxState = 7;
+
+        const body = document.body;
+        const container = document.getElementById("container");
+        const button = document.getElementById("action");
+
+        const title = document.querySelector("h1");
+        const message = document.getElementById("message");
+        const stateText = document.getElementById("state");
+
+
+        const states = [
+
+            {
+                title: "BEGIN",
+                message: "NÃO HÁ NADA AQUI."
+            },
+
+            {
+                title: "SIGNAL",
+                message: "ALGUMA COISA MUDOU."
+            },
+
+            {
+                title: "SPREAD",
+                message: "ESTÁ SE ESPALHANDO."
+            },
+
+            {
+                title: "CONTAMINATION",
+                message: "A INTERFACE ESTÁ SENDO ALTERADA."
+            },
+
+            {
+                title: "INVERSION",
+                message: "AS CORES NÃO SÃO MAIS AS MESMAS."
+            },
+
+            {
+                title: "DOMINANCE",
+                message: "O VERMELHO ESTÁ TOMANDO CONTA."
+            },
+
+            {
+                title: "COLLAPSE",
+                message: "A INTERFACE ESTÁ FALHANDO."
+            },
+
+            {
+                title: "END",
+                message: "AGORA VOCÊ ESTÁ DENTRO."
+            }
+
+        ];
+
+
+        button.addEventListener("click", () => {
+
+            if (state < maxState) {
+
+                state++;
+
+                updateSite();
+
+            } else {
+
+                resetSite();
+
+            }
+
+        });
+
+
+        function updateSite() {
+
+            /*
+                Atualiza variável CSS.
+
+                0 = preto
+                7 = vermelho máximo
+            */
+
+            const blood = state / maxState;
+
+            document.documentElement.style.setProperty(
+                "--blood",
+                blood
+            );
+
+
+            /*
+                Atualiza conteúdo
+            */
+
+            title.textContent =
+                states[state].title;
+
+            message.textContent =
+                states[state].message;
+
+            stateText.textContent =
+                `ESTADO ${state}`;
+
+
+            /*
+                Glitch nos estados mais avançados
+            */
+
+            if (state >= 6) {
+
+                container.classList.remove("glitch");
+
+                void container.offsetWidth;
+
+                container.classList.add("glitch");
+
+            }
+
+
+            /*
+                Estado final
+            */
+
+            if (state === maxState) {
+
+                body.classList.add("final-state");
+
+                button.textContent =
+                    "RECOMEÇAR";
+
+            }
+
+        }
+
+
+        function resetSite() {
+
+            state = 0;
+
+            document.documentElement.style.setProperty(
+                "--blood",
+                0
+            );
+
+            body.classList.remove("final-state");
+
+            title.textContent =
+                states[0].title;
+
+            message.textContent =
+                states[0].message;
+
+            stateText.textContent =
+                "ESTADO 0";
+
+            button.textContent =
+                "CONTINUAR";
+
+        }
+
+    </script>
+
+</body>
+</html>
+```
