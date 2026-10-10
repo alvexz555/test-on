@@ -1,25 +1,13 @@
-/* ==========================================
-   A.RISE
-   Independent Creative Studio
-   ========================================== */
-
+```css
 :root {
-  --background: #0c0c0e;
-  --surface: #141417;
-  --text: #f5f5f2;
-  --muted: #929299;
-  --accent: #f04444;
-  --border: #29292e;
-
-  --page-width: 1160px;
-  --gutter: 48px;
+  --background: #0b0b0c;
+  --text: #f5f5f5;
+  --muted: #a5a5aa;
+  --accent: #ed4545;
+  --border: #29292c;
 }
 
-/* RESET */
-
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
 }
 
@@ -29,66 +17,25 @@ html {
 }
 
 body {
-  position: relative;
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-
   color: var(--text);
+  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
-
-  background:
-    linear-gradient(
-      115deg,
-      transparent 0%,
-      transparent 57%,
-      rgba(255, 255, 255, 0.012) 57%,
-      rgba(255, 255, 255, 0.012) 57.1%,
-      transparent 57.1%
-    ),
-    var(--background);
 }
-
-/* A restrained red architectural accent */
-
-body::before {
-  position: absolute;
-  top: 0;
-  right: max(7%, calc((100vw - 1160px) / 2));
-  width: 1px;
-  height: 31vh;
-  min-height: 180px;
-  max-height: 300px;
-
-  background: linear-gradient(
-    to bottom,
-    var(--accent),
-    rgba(240, 68, 68, 0.16),
-    transparent
-  );
-
-  content: "";
-  pointer-events: none;
-}
-
-/* PAGE */
 
 .page {
   display: flex;
   flex-direction: column;
-
-  width: min(
-    var(--page-width),
-    calc(100% - var(--gutter) * 2)
-  );
+  width: min(1120px, calc(100% - 80px));
   min-height: 100vh;
   min-height: 100svh;
-
   margin: 0 auto;
 }
 
-/* HEADER */
+/* Cabeçalho */
 
 .header,
 .footer {
@@ -98,22 +45,17 @@ body::before {
 }
 
 .header {
-  min-height: 94px;
+  min-height: 100px;
   gap: 24px;
-
   border-bottom: 1px solid var(--border);
 }
 
 .logo {
-  display: inline-block;
-
   color: var(--text);
   text-decoration: none;
-
-  font-size: 29px;
-  font-weight: 900;
-  letter-spacing: -2.4px;
-  line-height: 1;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
 }
 
 .logo span,
@@ -131,237 +73,166 @@ body::before {
 
 .header-label {
   color: var(--muted);
-
-  font-size: 10px;
-  letter-spacing: 1.7px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
   text-align: right;
 }
 
-/* HERO */
+/* Apresentação principal */
 
 .hero {
-  position: relative;
-
   display: flex;
   flex: 1;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-
-  padding: clamp(76px, 10vh, 116px) 0;
-
-  text-align: left;
+  padding: 100px 0;
+  text-align: center;
 }
-
-/* STATUS */
 
 .status {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-
-  padding: 10px 12px;
-
-  border: 1px solid #383035;
-  border-left: 2px solid var(--accent);
-
-  background: #151214;
-  color: #d9a0a2;
-
-  font-size: 9px;
-  letter-spacing: 1.7px;
+  padding: 11px 15px;
+  border: 1px solid #383033;
+  color: #e8a3a3;
+  font-size: 10px;
+  letter-spacing: 1.5px;
 }
 
 .status-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   flex-shrink: 0;
-
   border-radius: 50%;
   background: var(--accent);
 }
 
-/* SYMBOL */
+/* Símbolo da marca */
 
 .symbol {
   display: flex;
   align-items: center;
-  gap: 15px;
-
-  margin: 43px 0 29px;
+  gap: 16px;
+  margin: 48px 0 32px;
 }
 
 .symbol span {
-  width: 34px;
+  width: 42px;
   height: 1px;
-
-  background: #414146;
-}
-
-.symbol span:first-child {
-  width: 48px;
-  background: var(--accent);
+  background: #414145;
 }
 
 .symbol strong {
   color: var(--accent);
-
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: -2px;
+  font-size: 32px;
+  font-weight: 700;
 }
 
-/* EYEBROW */
+/* Tipografia */
 
 .eyebrow {
-  margin: 0 0 21px;
-
-  color: #a4a4aa;
-
-  font-size: 10px;
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 11px;
   line-height: 1.8;
-  letter-spacing: 2.2px;
+  letter-spacing: 1.8px;
 }
 
-/* HEADLINE */
-
 h1 {
-  max-width: 900px;
   margin: 0;
-
   color: var(--text);
-
-  font-size: clamp(60px, 9vw, 112px);
-  font-weight: 800;
-  line-height: 0.94;
-  letter-spacing: -0.075em;
+  font-size: clamp(64px, 8vw, 104px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -3px;
 }
 
 h1 span {
-  position: relative;
   color: var(--accent);
 }
 
-/* DESCRIPTION */
-
 .description {
-  max-width: 530px;
-  margin: 29px 0 0;
-
-  color: #b9b9bf;
-
-  font-size: 15px;
+  max-width: 510px;
+  margin: 28px 0 0;
+  color: #bdbdc2;
+  font-size: 16px;
   line-height: 1.9;
-  letter-spacing: 0.05px;
+  font-weight: 400;
 }
 
-/* PROGRESS */
+/* Indicador de desenvolvimento */
 
 .progress-track {
-  width: 230px;
+  width: 220px;
   height: 2px;
-
-  margin-top: 39px;
+  margin-top: 42px;
   overflow: hidden;
-
-  background: #303035;
+  background: #303034;
 }
 
 .progress-bar {
   width: 36%;
   height: 100%;
-
   background: var(--accent);
 }
 
 .progress-label {
-  margin: 13px 0 0;
-
-  color: #77777f;
-
-  font-size: 9px;
-  letter-spacing: 1.5px;
+  margin: 15px 0 0;
+  color: #929298;
+  font-size: 10px;
   line-height: 1.8;
+  letter-spacing: 1.2px;
 }
 
-/* FOOTER */
+/* Rodapé */
 
 .footer {
-  min-height: 78px;
+  min-height: 82px;
   gap: 20px;
-
   border-top: 1px solid var(--border);
-
-  color: #818188;
-
-  font-size: 9px;
-  letter-spacing: 1.5px;
+  color: #a0a0a5;
+  font-size: 10px;
+  letter-spacing: 1px;
 }
 
 .signature {
-  color: #c4c4c9;
+  color: #d0d0d3;
   text-align: right;
 }
 
-/* DESKTOP REFINEMENT */
-
-@media (min-width: 1200px) {
-  .hero {
-    padding-top: 105px;
-    padding-bottom: 105px;
-  }
-
-  .description {
-    font-size: 16px;
-  }
-}
-
-/* TABLET */
+/* Tablets */
 
 @media (max-width: 760px) {
-  :root {
-    --gutter: 34px;
+  .page {
+    width: calc(100% - 48px);
   }
 
   .header {
-    min-height: 82px;
-  }
-
-  .logo {
-    font-size: 27px;
-  }
-
-  .header-label {
-    max-width: 180px;
-
-    font-size: 9px;
-    line-height: 1.7;
+    min-height: 84px;
   }
 
   .hero {
-    padding: 80px 0;
+    padding: 85px 0;
   }
 
   h1 {
-    font-size: clamp(58px, 10vw, 78px);
+    font-size: clamp(58px, 9vw, 76px);
+    letter-spacing: -2px;
   }
 
   .description {
-    max-width: 490px;
-    font-size: 14px;
+    max-width: 470px;
+    font-size: 15px;
   }
 }
 
-/* MOBILE */
+/* Celulares */
 
 @media (max-width: 480px) {
-  :root {
-    --gutter: 23px;
-  }
-
-  body::before {
-    right: 23px;
-    height: 150px;
+  .page {
+    width: calc(100% - 36px);
   }
 
   .header {
@@ -370,113 +241,85 @@ h1 span {
   }
 
   .logo {
-    font-size: 25px;
+    font-size: 27px;
   }
 
   .header-label {
-    max-width: 145px;
-
-    font-size: 8px;
-    letter-spacing: 1.1px;
+    max-width: 155px;
+    font-size: 9px;
+    line-height: 1.7;
+    letter-spacing: 1px;
   }
 
   .hero {
-    padding: 69px 0 76px;
+    padding: 76px 0 82px;
   }
 
   .status {
-    gap: 8px;
-    padding: 9px 10px;
-
-    font-size: 8px;
-    letter-spacing: 1.3px;
+    padding: 10px 12px;
+    font-size: 9px;
+    letter-spacing: 1px;
   }
 
   .symbol {
-    gap: 12px;
-    margin: 38px 0 26px;
-  }
-
-  .symbol span {
-    width: 25px;
-  }
-
-  .symbol span:first-child {
-    width: 36px;
-  }
-
-  .symbol strong {
-    font-size: 26px;
+    margin: 40px 0 28px;
   }
 
   .eyebrow {
     max-width: 300px;
-    margin-bottom: 20px;
-
+    margin-bottom: 22px;
     font-size: 9px;
-    letter-spacing: 1.4px;
+    letter-spacing: 1.2px;
   }
 
   h1 {
-    font-size: clamp(48px, 12.4vw, 61px);
-    line-height: 0.99;
-    letter-spacing: -0.07em;
+    font-size: clamp(48px, 11.5vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -1.5px;
   }
 
   .description {
-    max-width: 100%;
     margin-top: 24px;
-
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.85;
   }
 
   .progress-track {
     width: 190px;
-    margin-top: 32px;
+    margin-top: 34px;
   }
 
   .progress-label {
-    max-width: 100%;
-    font-size: 8px;
-    letter-spacing: 1px;
+    max-width: 290px;
+    font-size: 9px;
+    letter-spacing: 0.7px;
   }
 
   .footer {
-    min-height: 68px;
+    min-height: 72px;
     gap: 12px;
-
     font-size: 8px;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.5px;
   }
 }
 
-/* VERY SMALL SCREENS */
-
 @media (max-width: 350px) {
-  :root {
-    --gutter: 18px;
+  .page {
+    width: calc(100% - 28px);
   }
 
   .header-label {
-    max-width: 120px;
-    font-size: 7px;
+    max-width: 125px;
+    font-size: 8px;
   }
 
   h1 {
     font-size: 45px;
+    letter-spacing: -1px;
   }
 
   .footer {
     font-size: 7px;
-  }
-}
-
-/* ACCESSIBILITY */
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
   }
 }
 ```
